@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const router = useRouter();
+
   return (
     <nav className="navbar bg-base-100 shadow-sm px-8">
       <div className="flex-1">
@@ -36,7 +39,14 @@ export default function Navbar() {
               <a>Settings</a>
             </li>
             <li>
-              <a>Logout</a>
+              <button
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  router.push("/auth/login");
+                }}
+              >
+                Logout
+              </button>
             </li>
           </ul>
         </div>
