@@ -1,4 +1,9 @@
-export default function PasswordInput() {
+type PasswordInputProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+export default function PasswordInput({ value, onChange }: PasswordInputProps) {
   return (
     <>
       <label>Contraseña:</label>
@@ -20,7 +25,10 @@ export default function PasswordInput() {
           </g>
         </svg>
         <input
+          name="password"
           type="password"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           required
           placeholder="Password"
           minLength={8}

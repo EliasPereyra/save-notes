@@ -1,4 +1,9 @@
-export default function NameInput() {
+type NameInputProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+export default function NameInput({ value, onChange }: NameInputProps) {
   return (
     <>
       <label>Nombre:</label>
@@ -20,6 +25,9 @@ export default function NameInput() {
           </g>
         </svg>
         <input
+          name="name"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           type="text"
           required
           placeholder="Pedro Pérez"
