@@ -1,14 +1,14 @@
-"use client";
 import Link from "next/link";
 
-import Card from "@/components/card";
-import Loader from "@/components/loader";
 import Modal from "@/components/modal";
-import { useNotes } from "@/hooks/useNote";
+import NoteList from "@/components/note-list";
 
-export default function Dashboard({ params }: { params: { userId: string } }) {
-  const { data: notes, isLoading } = useNotes(params.userId);
-  if (isLoading) return <Loader />;
+export default async function Dashboard({
+  params,
+}: {
+  params: { userId: string };
+}) {
+  const { userId } = await params;
 
   return (
     <div className="grid justify-items-center min-h-screen p-8 gap-16 sm:p-16 font-[family-name:var(--font-geist-sans)]">
@@ -18,20 +18,7 @@ export default function Dashboard({ params }: { params: { userId: string } }) {
             <h1 className="text-4xl font-bold">Your notes</h1>
             <Modal />
           </div>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {notes?.length > 0 ? (
-              notes?.map((note) => (
-                <Card title={note.title} content={note.content} key={note.id} />
-              ))
-            ) : (
-              <div className="flex flex-col items-center gap-4">
-                <h2 className="text-2xl font-bold">No tienes notas creadas</h2>
-                <p className="text-slate-500">
-                  Comienza agregando notas a tu lista
-                </p>
-              </div>
-            )}
-          </ul>
+          <NoteList userId={userId as string} />
         </section>
       </main>
 
