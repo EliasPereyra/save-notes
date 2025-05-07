@@ -1,6 +1,6 @@
 "use client";
+
 import Navbar from "@/components/navbar";
-import { NotesProvider } from "@/hooks/useNotes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 
@@ -13,11 +13,9 @@ export default function DashboardLayout({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <NotesProvider>
-        <Toaster />
-        <Navbar />
-        {children}
-      </NotesProvider>
+      <Toaster />
+      <Navbar />
+      {children}
     </QueryClientProvider>
   );
 }
