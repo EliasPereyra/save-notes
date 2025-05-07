@@ -10,6 +10,7 @@ import { useState } from "react";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -25,6 +26,7 @@ export default function Login() {
     if (res.ok) {
       return res.json().then((data) => {
         localStorage.setItem("token", data.token);
+        setLoading(true);
         router.push(`/dashboard/${data.user.id}`);
       });
     }
@@ -54,8 +56,8 @@ export default function Login() {
 
         <EmailInput value={email} onChange={setEmail} />
         <PasswordInput value={password} onChange={setPassword} />
-        <button type="submit" className="btn btn-primary">
-          Iniciar sesión
+        <button disabled={loading} type="submit" className="btn btn-primary">
+          {loading ? "Cargando..." : "Iniciar sesión"}
         </button>
         <p className="text-center text-slate-300 text-sm mt-4">
           ¿No tienes una cuenta todavía?{" "}
